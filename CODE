@@ -14,7 +14,7 @@ turtles = 8
 turtle.screensize(length, height)
 
 
-class turtleRace(object):
+class turtleRace(object):     #creating the turtle object
     def __init__(self, color, pos):
         self.pos = pos
         self.color = color
@@ -26,13 +26,13 @@ class turtleRace(object):
         self.turt.setheading(90)
 
     
-    def move(self):
+    def move(self):     #defining the range of movement for the turtle
         travel = random.randrange(1, 20)
         self.pos = (self.pos[0], self.pos[1] + travel)
         self.turt.pendown()
         self.turt.forward(travel)
 
-    def reset(self):
+    def reset(self):     #resets turtle to orignal postion if user requests to play again
         self.turt.penup()
         self.turt.setpos(self.pos)
 
@@ -40,15 +40,15 @@ def startGame():
     rList = []
     turtle.clearscreen()
     turtle.hideturtle()
-    colors = ['Red', 'Green', 'Blue', 'Yellow', 'Pink', 'Orange', 'Purple', 'Black']
-    start = -(length/2) + 25
+    colors = ['Red', 'Green', 'Blue', 'Yellow', 'Pink', 'Orange', 'Purple', 'Black']     #assigning colour to each turtle
+    start = -(length/2) + 25     #starting position of turtle
     for r in range(turtles):
-        newPosX = start + r*(length)//turtles
+        newPosX = start + r*(length)//turtles     #position after the forward increase
         rList.append(turtleRace(colors[r],(newPosX, -230)))
         rList[r].turt.showturtle()
 
-    run = True
-    while run:
+    go = True
+    while go:
         for r in rList:
             r.move()
 
@@ -64,10 +64,10 @@ def startGame():
                 maxColor.append(r.color)
 
         if len(maxColor) > 0:
-            run = False
+            go = False
             print('The winner is: ')
             for winner in maxColor:
-                print(winner)
+                print(winner)           #outputs winning turtle to user
 
     
 
@@ -79,3 +79,4 @@ while True:
     print('------------------------------------------------------------')
     start = input('Would you like to play again? Press ENTER to begin. \nYou may stop playing at any time by closing the application.' + '\n')
     startGame()
+
