@@ -1,0 +1,81 @@
+#Modified by: Tanjeem Hossain
+#Last Modified: 1/6/2021
+#Turtle Race 
+
+import turtle
+import math
+import random
+
+height = 500
+length = 500
+
+turtles = 8
+
+turtle.screensize(length, height)
+
+
+class turtleRace(object):
+    def __init__(self, color, pos):
+        self.pos = pos
+        self.color = color
+        self.turt = turtle.Turtle()
+        self.turt.shape('turtle')
+        self.turt.color(color)
+        self.turt.penup()
+        self.turt.setpos(pos)
+        self.turt.setheading(90)
+
+    
+    def move(self):
+        travel = random.randrange(1, 20)
+        self.pos = (self.pos[0], self.pos[1] + travel)
+        self.turt.pendown()
+        self.turt.forward(travel)
+
+    def reset(self):
+        self.turt.penup()
+        self.turt.setpos(self.pos)
+
+def startGame():
+    rList = []
+    turtle.clearscreen()
+    turtle.hideturtle()
+    colors = ['Red', 'Green', 'Blue', 'Yellow', 'Pink', 'Orange', 'Purple', 'Black']
+    start = -(length/2) + 25
+    for r in range(turtles):
+        newPosX = start + r*(length)//turtles
+        rList.append(turtleRace(colors[r],(newPosX, -230)))
+        rList[r].turt.showturtle()
+
+    run = True
+    while run:
+        for r in rList:
+            r.move()
+
+        maxColor = []
+        maxDis = 0
+        for r in rList:
+            if r.pos[1] > 230 and r.pos[1] > maxDis:
+                maxDis = r.pos[1]
+                maxColor = []
+                maxColor.append(r.color)
+            elif r.pos[1] > 230 and r.pos[1] == maxDis:
+                maxDis = r.pos[1]
+                maxColor.append(r.color)
+
+        if len(maxColor) > 0:
+            run = False
+            print('The winner is: ')
+            for winner in maxColor:
+                print(winner)
+
+    
+
+start = input('Would you like to play? Press ENTER key to begin. \nYou may stop playing at any time by closing the application.' + '\n')
+if start == '':
+    startGame() 
+  
+while True:
+    print('------------------------------------------------------------')
+    start = input('Would you like to play again? Press ENTER to begin. \nYou may stop playing at any time by closing the application.' + '\n')
+    startGame()
